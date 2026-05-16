@@ -14,6 +14,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { COLORS, COLORS_DARK, RADIUS, SPACING, SHADOWS } from "../constants/theme";
 import { useThemeStore } from "../store/theme";
 import MenuCard from "../components/MenuCard";
+import ItemDetailModal from "../components/ItemDetailModal";
 import CartPreview from "../components/CartPreview";
 import { fetchMenu } from "../services/api";
 
@@ -40,6 +41,7 @@ export default function MenuScreen({ navigation }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedItem, setSelectedItem] = useState(null);
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const isDark = useThemeStore((s) => s.isDark);
   const toggleTheme = useThemeStore((s) => s.toggle);
@@ -243,7 +245,7 @@ export default function MenuScreen({ navigation }) {
       <FlatList
         data={currentItems}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <MenuCard item={item} />}
+        renderItem={({ item }) => <MenuCard item={item} onPress={setSelectedItem} />}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContent}
         ListHeaderComponent={ListHeader}
@@ -257,6 +259,9 @@ export default function MenuScreen({ navigation }) {
 
       {/* Floating Cart Preview */}
       <CartPreview onPress={() => navigation.navigate("Cart")} />
+
+      {/* Item Detail Modal */}
+      <ItemDetailModal item={selectedItem} onClose={() => setSelectedItem(null)} />
     </Animated.View>
   );
 }

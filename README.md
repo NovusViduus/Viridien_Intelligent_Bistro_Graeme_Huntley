@@ -20,9 +20,9 @@ Built for the **Viridien AI Full-Stack Engineering Internship Challenge**.
 |:---:|:---:|:---:|
 | ![Chat](screenshots/Bistro%20Assistant%20Screenshot.png) | ![Cart](screenshots/Cart.png) | ![Checkout](screenshots/Checkout.png) |
 
-| Our Story |
-|:---:|
-| ![History](screenshots/Bistro%20History.png) |
+| Item Customization | Our Story |
+|:---:|:---:|
+| ![Customization](screenshots/Item%20Customization.png) | ![History](screenshots/Bistro%20History.png) |
 
 ---
 
@@ -32,6 +32,7 @@ Built for the **Viridien AI Full-Stack Engineering Internship Challenge**.
 - **Conversational Ordering** - Natural language cart management via Claude AI  
   _"Add two spicy chicken sandwiches and a large water"_ into structured cart updates
 - **Dual Input** - Manage your cart through chat OR traditional UI tap interactions
+- **Item Customization** - Tap any menu item to view details, select add-ons (bacon, gluten-free bun, etc.), adjust quantity, and add to cart with live price calculation
 - **Smart AI Assistant** - Contextual upsells, disambiguation, dietary awareness, combo suggestions
 - **Real-time Cart** - Live totals, quantity adjustments, item removal
 
@@ -59,11 +60,11 @@ Built for the **Viridien AI Full-Stack Engineering Internship Challenge**.
 
 | Layer | Technology |
 |-------|-----------|
-| **Mobile** | React Native (Expo SDK 52), NativeWind v4, Zustand, React Navigation |
+| **Mobile** | React Native (Expo SDK 52), Zustand, React Navigation |
 | **Backend** | Node.js, Express, Anthropic Claude API |
-| **AI** | Claude Sonnet 4 for NLP intent parsing → structured JSON |
+| **AI** | Claude Sonnet 4 for NLP intent parsing into structured JSON |
 | **State** | Zustand (lightweight, zero-boilerplate) |
-| **Styling** | NativeWind (Tailwind for RN), custom theme system with dark mode |
+| **Styling** | React Native StyleSheet, custom theme system with dark mode |
 
 ---
 
@@ -98,6 +99,7 @@ intelligent-bistro/
 │   │   │   └── AboutScreen.js   # Parallax scrollable restaurant history
 │   │   ├── components/
 │   │   │   ├── MenuCard.js      # Item card with image, badges, add button
+│   │   │   ├── ItemDetailModal.js # Full item view with customization picker
 │   │   │   ├── CartItem.js      # Cart line item with quantity controls
 │   │   │   ├── ChatBubble.js    # Animated message bubbles + typing indicator
 │   │   │   ├── SuggestionChips.js # Quick-reply suggestion buttons
@@ -323,8 +325,6 @@ This allows full UI testing without API costs.
 | **Stack + Tab navigation** | Checkout slides up as modal, tabs remain accessible |
 | **Image require() map** | Static imports for Expo bundling, dynamic soup variant resolver |
 
----
-
 ## AI Tools Used
 
 - **Claude Code / Kiro** - Primary development tools for scaffolding, implementing features, debugging, and iterating on UI/UX
@@ -344,7 +344,7 @@ This allows full UI testing without API costs.
 | **Desserts** | Tiramisu, Chocolate Lava Cake, Crème Brûlée |
 | **Drinks** | Water (S/L), Lemonade, Iced Tea, Espresso, Craft Soda |
 
-Each item supports customizations with pricing (e.g., "Add Bacon +$2.00", "Gluten-Free Bun +$1.50").
+Each item supports customizations with pricing, selectable through the item detail modal or via AI chat (e.g., "Add a burger with bacon" or "Caesar salad, add chicken").
 
 ---
 
