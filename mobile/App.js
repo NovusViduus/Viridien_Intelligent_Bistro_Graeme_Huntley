@@ -24,8 +24,8 @@ const Stack = createNativeStackNavigator();
  * Renders nothing when the cart is empty.
  */
 function CartBadge() {
-  const getItemCount = useCartStore((s) => s.getItemCount);
-  const count = getItemCount();
+  const items = useCartStore((s) => s.items);
+  const count = items.reduce((sum, item) => sum + item.quantity, 0);
 
   if (count === 0) return null;
 

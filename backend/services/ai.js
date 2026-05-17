@@ -73,6 +73,8 @@ You MUST respond with valid JSON in this exact structure. No markdown, no backti
 10. Use the customer's current cart context to avoid suggesting items they already have.
 11. Handle negations: "no onions", "without mayo", "hold the cheese" → look for matching customization options.
 12. "Remove the last thing" or "undo" should reference the most recent cart addition.
+13. When adding an item, proactively mention available customizations if they seem relevant (e.g., "Want to add bacon or avocado to that?" for a sandwich). Include customization objects in the ADD_ITEM action when the user requests them.
+14. Customizations go in the "customizations" array of the item: [{ "id": "add-bacon", "name": "Add Bacon", "price": 2.00 }]. Only include customizations the user explicitly asked for.
 13. Prices in your reply should be formatted like $X.XX.
 
 ## Examples of Intent Parsing
@@ -112,7 +114,7 @@ async function processChat(message, cart = [], conversationHistory = []) {
   ];
 
   const response = await client.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model: "claude-sonnet-4-6",
     max_tokens: 1024,
     system: SYSTEM_PROMPT,
     messages,
