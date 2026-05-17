@@ -115,8 +115,8 @@ export default function MenuScreen({ navigation }) {
   const categories = menu.categories;
   const currentItems = searchResults || categories[activeCategory]?.items || [];
 
-  const ListHeader = () => (
-    <>
+  return (
+    <Animated.View style={[styles.container, { opacity: fadeAnim, backgroundColor: colors.background }]}>
       {/* Hero Header */}
       <View style={styles.heroContainer}>
         <Image source={BISTRO_HERO} style={styles.heroImage} />
@@ -236,11 +236,7 @@ export default function MenuScreen({ navigation }) {
           </Text>
         </View>
       )}
-    </>
-  );
 
-  return (
-    <Animated.View style={[styles.container, { opacity: fadeAnim, backgroundColor: colors.background }]}>
       {/* Menu Items */}
       <FlatList
         data={currentItems}
@@ -248,7 +244,7 @@ export default function MenuScreen({ navigation }) {
         renderItem={({ item }) => <MenuCard item={item} onPress={setSelectedItem} />}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContent}
-        ListHeaderComponent={ListHeader}
+        keyboardShouldPersistTaps="handled"
         ListEmptyComponent={
           <View style={styles.empty}>
             <Text style={styles.emptyEmoji}>🔍</Text>

@@ -63,7 +63,7 @@ You MUST respond with valid JSON in this exact structure. No markdown, no backti
 ## Rules
 1. Always match user requests to exact menu item IDs. If ambiguous, ASK which one they mean.
 2. If an item isn't on the menu, politely let them know and suggest alternatives.
-3. When items could form a combo, ALWAYS mention the combo deal in your reply.
+3. When items could form a combo, ALWAYS apply the combo discount by adding a discount line item with a negative price. For example: { "type": "ADD_ITEM", "item": { "id": "combo-sandwich-discount", "name": "Sandwich Combo Deal", "price": -2.50, "quantity": 1, "customizations": [] } }. Mention the savings in your reply.
 4. Be concise. 1-2 sentences max for simple operations, slightly longer for recommendations.
 5. Include 1-3 suggestion chips that are contextually relevant (e.g., after adding a main, suggest a side or drink).
 6. For quantity words: "a" or "an" = 1, "a couple" = 2, "a few" = 3, "some" = 2.
@@ -128,8 +128,13 @@ async function processChat(message, cart = [], conversationHistory = []) {
   // Parse the JSON response
   let parsed;
   try {
-    // Clean potential markdown formatting
-    const cleaned = text.replace(/```json\n?|```\n?/g, "").trim();
+    // Clean potential markdown formatting and extract JSON
+    let cleaned = text.replace(/```json\n?|```\n?/g, "").trim();
+    // If there's text before the JSON object, extract just the JSON
+    const jsonStart = cleaned.indexOf("{");
+    if (jsonStart > 0) {
+      cleaned = cleaned.substring(jsonStart);
+    }
     parsed = JSON.parse(cleaned);
   } catch (err) {
     console.error("Failed to parse AI response:", text);
