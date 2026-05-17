@@ -6,6 +6,30 @@ Built for the **Viridien AI Full-Stack Engineering Internship Challenge**.
 
 ---
 
+## Quick Start
+
+```bash
+# Clone the repo
+git clone https://github.com/NovusViduus/Viridien_Intelligent_Bistro_Graeme_Huntley.git
+cd Viridien_Intelligent_Bistro_Graeme_Huntley
+
+# Start the backend (Terminal 1)
+cd backend
+npm install
+cp .env.example .env          # Add your Anthropic API key (optional)
+npm run dev
+
+# Start the mobile app (Terminal 2)
+cd mobile
+npm install
+npx expo start
+# Press 'i' for iOS simulator, 'a' for Android, or 'w' for web
+```
+
+> The app works without an API key using mock AI responses. Add your key to `backend/.env` for the full Claude-powered experience.
+
+---
+
 ## Screenshots
 
 | Splash | Menu (Starters) | Menu (Mains) |
